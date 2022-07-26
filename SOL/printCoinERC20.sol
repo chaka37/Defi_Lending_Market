@@ -2,7 +2,9 @@
 
 Set pragma
 
+```solidity
 pragma solidity ^0.5.0;
+```
 
 Import 'ERC20' and 'ERC20Detailed' contracts from OpenZeppelin
 ```solidity
