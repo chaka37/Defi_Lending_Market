@@ -14,7 +14,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5
 
 Define a contract named 'PRNTCoin' that inherits the OpenZeppelin `ERC20` and `ERC20Detailed` contracts.
 ```solidity
-contract PrintCoin is ERC20, ERC20Detailed{
+contract PRNTCoin is ERC20, ERC20Detailed{
 
     address payable owner;
 
