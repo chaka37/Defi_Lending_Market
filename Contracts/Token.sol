@@ -22,7 +22,7 @@ contract PRNTCoin is ERC20, ERC20Detailed{
         _;
     }
 
-    constructor(uint initialSupply) ERC20Detailed("PRNTCoin", "PRNT", 18) public {
+    constructor(uint initialSupply) ERC20Detailed("PRNTCoin", "PRNT", 0) public {
         owner = msg.sender;
         _mint(owner, initialSupply);
     }
