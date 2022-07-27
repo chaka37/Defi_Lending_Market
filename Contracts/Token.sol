@@ -22,5 +22,15 @@ contract PRNTCoin is ERC20, ERC20Detailed{
         require(msg.sender == owner, "You do not have permission to mint these tokens!");
         _;
     }
+
+    constructor(uint initialSupply) ERC20Detailed("PRNTCoin", "PRNT", 18) public {
+        owner = msg.sender;
+        _mint(owner, initialSupply);
+    }
+
+    function mint(address recipient, uint amount) public onlyOwner {
+        _mint(recipient, amount);
+    }
+}
 }
 ```
