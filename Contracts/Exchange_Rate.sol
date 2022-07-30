@@ -1,7 +1,8 @@
 pragma solidity ^0.5.0;
 	
 	import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-	
+	import "./Token.sol";
+
 	contract ExchangeRateOracle {
 	
 	    AggregatorV3Interface internal priceFeed;
@@ -9,10 +10,10 @@ pragma solidity ^0.5.0;
 	    /**
 	     * Network: Metamask
 	     * Aggregator: ETH/USD
-	     * Address: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 //from https://docs.chain.link/docs/ethereum-addresses/
+	     * Address: 0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419 //from https://data.chain.link/ethereum/mainnet/crypto-usd/eth-usd
 	     */
 	    constructor() public {
-	        priceFeed = AggregatorV3Interface(0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419);
+	        priceFeed = AggregatorV3Interface(0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419);
 	    }
 	  
 	    /**
