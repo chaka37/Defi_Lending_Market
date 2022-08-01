@@ -8,7 +8,7 @@ contract ExchangeRateOracle {
     AggregatorV3Interface internal priceFeed;
 
     /**
-     * Network: Kovan
+     * Network: Kovan-obtained test ETH via Kovan faucet 
      * Aggregator: ETH/USD
      * Address: 0x9326BFA02ADD2366b30bacB125260Af641031331
      */
@@ -27,7 +27,7 @@ contract ExchangeRateOracle {
             uint startedAt,
             uint timeStamp,
             uint80 answeredInRound
-        ) = priceFeed.latestRoundData()// returns five values representing info about the latest price data;
+        ) = priceFeed.latestRoundData();// returns five values representing info about the latest price data
         return price;
     }
        
