@@ -1,4 +1,6 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "./Token.sol";
 
@@ -25,13 +27,13 @@ contract Loan {
         token = _token;
         collateralAmount = _collateralAmount;
         payoffAmount = _payoffAmount;
-        dueDate = now + loanDuration;
+        dueDate = block.timestamp + loanDuration;
     }
 
     event LoanPaid();
 
     function payLoan() public payable {
-        require(now <= dueDate);
+        require(block.timestamp <= dueDate);
         require(msg.value == payoffAmount);
 
         require(token.transfer(borrower, collateralAmount));
@@ -39,7 +41,7 @@ contract Loan {
     }
 
     function repossess() public {
-        require(now > dueDate);
+        require(block.timestamp > dueDate);
 
         require(token.transfer(lender, collateralAmount));
     }

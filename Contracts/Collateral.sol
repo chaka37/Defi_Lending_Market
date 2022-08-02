@@ -1,15 +1,21 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "./Token.sol";
 import "./loanContract.sol";
 
 contract LoanRequest {
-    address payable public borrower = msg.sender;
+    address payable public borrower;
     PRNTCoin public token;
     uint256 public collateralAmount;
     uint256 public loanAmount;
     uint256 public payoffAmount;
     uint256 public loanDuration;
+
+    constructor() payable {
+        borrower = payable(msg.sender);
+    }
 
     function LoanRequestInfo(
         PRNTCoin _token,
