@@ -25,14 +25,14 @@ contract Escrow is ERC20, ExchangeRateOracle{
         _;
     }
 
-    function initialize(address escrowWalletAddress) external onlyOwner{
+    function initialize(address escrowWalletAddress) external escrowWallet{
         require(!initialized, "Contract is already initialized");
 
-        initialized_escrowWallet = Current_EscrowWallet(_escrowWalletAddress);
+        address = escrowWalletAddress;
 
-        initialize = true;
+        isinitialize = true;
 
-        emit initial(_escrowWalletAddress);
+        emit (escrowWalletAddress);
     }
 
     function escrowDepositCollateral(address _borrower, uint256 _loanDuration) external payable isInitialized{
@@ -42,12 +42,12 @@ contract Escrow is ERC20, ExchangeRateOracle{
         uint256 loanAmount = msg.value;
         uint256 getLatestPrice = block.timeStamp + _loanDuration;
 
-        Wallet.mint(_borrower, _loanAmount, getLatestPrice);
+        //Wallet.mint(_borrower, loanAmount, getLatestPrice);
 
         emit Escrowed(msg.sender,
             _borrower,
             loanAmount,
-            loanDuration);
+            _loanDuration);
     }
 
     //function redeemEthEscrow();

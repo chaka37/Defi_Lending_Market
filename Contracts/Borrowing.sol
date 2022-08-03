@@ -1,4 +1,6 @@
-pragma solidity ^0.5.17;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "./Token.sol";
 import "./loanContract.sol";
@@ -6,17 +8,24 @@ import "./Collateral.sol";
 
 
 contract borrowing {
-        function borrow(uint256 _amount) external {
+
+     address public onlyOwner;
+  
+     // Defining a constructor   
+     constructor() public{   
+        onlyOwner=msg.sender;
+     }
+        function borrow (uint256 _amount) external {
                 require(_amount <= _borrowLimit(), "Not enough collateral");
-                usersBorrowed[msg.sender] += _amount;
+                onlyOwner += _amount;
                 totalBorrowed += _amount;
-                _withdrawPRNT(_amount);
+                
         }
         
 
         function repay(uint256 _amount) external {
-                require(usersBorrowed[msg.sender] > 0, "Doesnt have a debt to pay");
-                eth.transferFrom(msg.sender, address(this), _amount);
+                require(onlyOwner > 0, "Doesnt have a debt to pay");
+                weth.transferFrom(onlyOwner, address(this), _amount);
                 (uint256 fee, uint256 paid) = calculateBorrowFee(_amount);
                 usersBorrowed[msg.sender] -= paid;
                 totalBorrowed -= paid;
@@ -24,7 +33,7 @@ contract borrowing {
                 _sendPRNT(_amount);
         }
         
-        function liquidation(address _user) external onlyOwner {
+        function liquidation(address _user) external payable onlyOwner{
                 uint256 wethPrice = uint256(_getLatestPrice());
                 uint256 collateral = usersCollateral[_user];
                 uint256 borrowed = usersBorrowed[_user];
