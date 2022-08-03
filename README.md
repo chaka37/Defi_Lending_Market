@@ -33,7 +33,7 @@ PRNTCoin
 ## How the Contracts will interact
 Token Contract > Token Exchange Contract > Borrowing Contract ( Borrower verification, loan, collateral) > Loan and Collateral Contract (will interact with Borrower contract to verify borrower information and loan and collateral info) > Funding Contract (will interact with Loan and collateral- once this information satisfies contract, funding will commence) > Payable contract ( Returns Collateral to lender + interest- will interact with funding and loan contract to verify loan has been completely paid)
 ![image](https://user-images.githubusercontent.com/98926434/182717123-f811ff08-8db5-442a-a9ef-a3cb53611da0.png)
-![image](https://user-images.githubusercontent.com/98926434/182717168-a83d0a77-72d3-445e-bfb0-5000cc05584a.png)
+![image](https://user-images.githubusercontent.com/98926434/182718347-e817fafd-a530-4866-ac46-575b6d105425.png)
 ![image](https://user-images.githubusercontent.com/98926434/182717194-8f2881ae-b9e0-4858-89b8-a6acafaae58f.png)
 
 
