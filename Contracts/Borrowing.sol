@@ -95,7 +95,7 @@ contract Borrowing {
         require(token.transfer(recipient, units));
     }
 
-    function makePayment() public payable {
+    function makePayment(address _lender) public payable {
         require(block.timestamp <= dueDate);
 
         uint256 interest;
@@ -108,7 +108,7 @@ contract Borrowing {
         processPeriod(interest, principal, borrower);
     }
 
-    function withdraw() public {
+    function withdraw(address borrower) payable public {
         lender.transfer(address(this).balance);
     }
 
@@ -126,7 +126,7 @@ contract Borrowing {
         processPeriod(interest, principal, lender);
     }
 
-    function returnCollateral() public {
+    function returnCollateral(address _borrower) payable public {
         require(remainingBalance == 0);
 
         uint256 amount = token.balanceOf(address(this));
