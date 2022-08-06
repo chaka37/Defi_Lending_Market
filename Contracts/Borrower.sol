@@ -1,4 +1,7 @@
 // SPDX-License-Identifier: MIT
+
+//Based on https://programtheblockchain.com/posts/2018/04/24/writing-a-periodic-loan-contract/
+
 pragma solidity ^0.8.0;
 
 import "./Token.sol";
@@ -33,10 +36,7 @@ struct Rational {
         uint256 _collateralDeposit
     )
     {
-        // dueDate1= _dueDate1; 
-        // dueDate2= _dueDate2; 
-        // dueDate3= _dueDate3; 
-        // dueDate4= _dueDate4;
+    
         borrower= payable(msg.sender);
         escrowAddress = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
         loanAmountRequested = _loanAmountRequested;
@@ -56,19 +56,16 @@ struct Rational {
         return x * r.numerator / r.denominator;
     }
 
-    // Need a function to make payments + return a portion of collateral
-    // Need a function for the payment plan
-    // Need a function for a missed payment
-    // Need a function for lending 
-    // Need a function to makecollateraldeposit
-    // function updateBalance
 
+    //This function allows collection of the collateral
     function depositCollateral(uint _collateral) payable external{
         require(msg.value >= loanAmountRequested/2, "Give me more MONEY!!!");
         _collateral += msg.value;
         escrowAddress.transfer(msg.value);
     }
 
+    //This function allows make payments to the escrow wallet
+    //It also reduces the remaining balance by the payment amount
     function makePayments (uint256 _paymentAmount) public payable returns(uint256){
       require(block.timestamp<= dueDate);
       require(msg.value >= minimumPayment);
@@ -82,13 +79,50 @@ struct Rational {
     //    if _remainingBalance <= payoffAmount
        //show next due date
        //update dueDate after last due date payment is made
+    // struct dueDater{
+    //     uint256 dueDate1;
+    //     uint256 dueDate2;
+    //     uint256 dueDate3;
+    //     uint256 dueDate4;
 
-    // Struct duePayments{
-    // uint256 dueDate,
-    // uint256 remainingBalanceDue
     // }
 
-    // mapping(uint256 => duePayments) public balanceChecker;
+
+    // struct duePayments{
+    // uint256 dueDate;
+    // uint256 remainingBalanceDue;
+    // }
+
+    // mapping(dueDater => duePayments) public balanceChecker;
+    uint256[] public dueDatesArray;
+
+    function createDueDates() public returns(uint256[] memory){
+        dueDate1= (startDate + 13 weeks);
+        dueDate2= (startDate + 26 weeks);
+        dueDate3= (startDate + 39 weeks);
+        dueDate4= (startDate + 52 weeks);
+
+        dueDatesArray.push(dueDate1);
+        dueDatesArray.push(dueDate2);
+        dueDatesArray.push(dueDate3);
+        dueDatesArray.push(dueDate4);
+
+        return dueDatesArray;
+
+    // }
+    // function adding_values() public {
+  
+    //     duePayments._dueDate1 = (startDate + 13 weeks);
+    //     duePayments.remainingBalanceDue1 = remainingBalance- minimumPayment;
+    //     duePayments._dueDate2 = (startDate + 26 weeks);
+    //     duePayments.remainingBalanceDue2 = remainingBalance- (minimumPayment*2);
+    //     duePayments._dueDate3 = (startDate + 39 weeks);
+    //     duePayments.remainingBalanceDue3 = remainingBalance- (minimumPayment*3);
+    //     duePayments._dueDate4 = (startDate + 52 weeks);
+    //     duePayments.remainingBalanceDue4 = remainingBalance- (minimumPayment*4);
+
+  
+    // }
 
     // function viewPaymentSchedule(uint256 _id, uint256 memory _dueDate, uint256 memory _remainingBalanceDue) public {
     //     // we want to loop through the 
@@ -97,21 +131,7 @@ struct Rational {
     //         balanceChecker[_id]= duePayments(_dueDate, _remainingBalanceDue);
 
 
-    // }
-
-    // uint256[][] public dueDatesArray=[[],[]];
-
-    // function createDueDates() public returns(uint256[] memory){
-    //     dueDate1= (startDate + 13 weeks);
-    //     dueDate2= (startDate + 26 weeks);
-    //     dueDate3= (startDate + 39 weeks);
-    //     dueDate4= (startDate + 52 weeks);
-
-    //     dueDatesArray.push(dueDate1);
-    //     dueDatesArray.push(dueDate2);
-    //     dueDatesArray.push(dueDate3);
-    //     dueDatesArray.push(dueDate4);
-
-    //     return dueDatesArray;
-
     }
+
+
+}
