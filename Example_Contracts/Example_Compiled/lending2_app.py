@@ -21,16 +21,16 @@ w3 = Web3(Web3.HTTPProvider(os.getenv("WEB3_PROVIDER_URI")))
 def load_contract():
 
     # Load the contract ABI
-    with open(Path('./borrowing2.json')) as f:
-        borrowing2.json = json.load(f)
+    with open(Path('./lending2.json')) as f:
+        lending2_abi = json.load(f)
 
     # Set the contract address (this is the address of the deployed contract)
-    contract_address = os.getenv("borrowing2_Smart_Contract_Address")
+    contract_address = os.getenv("lending2_Smart_Contract_Address")
 
     # Get the contract
     contract = w3.eth.contract(
-        address=borrowing2_Smart_Contract_Address,
-        abi=borrowing2.json
+        address=contract_address,
+        abi=lending2_abi
     )
 
     return contract
@@ -41,23 +41,14 @@ contract = load_contract()
 
 
 ################################################################################
-# Register New Artwork
+# Register 
 ################################################################################
-st.title("Borrower Deposit Portal")
+st.title("Lending Deposit Portal")
 accounts = w3.eth.accounts
-uint256 = st.number_input("Enter Your Amount of Collateral")
-if st.button("Borrower Deposit Portal"):
-    tx_hash = contract.functions.depositCollateral(uint256).transact({'from': address, 'gas': 1000000})
-    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-    st.write("Transaction receipt mined:")
-    st.write(dict(receipt))
-st.markdown("---")
-
-st.title("Make A Payment")
-accounts = w3.eth.accounts
-uint256 = st.text_input("Enter The Payment Amount")
-if st.button("Make A Payment"):
-    tx_hash = contract.functions._paymentAmount(uint256).transact({'from': address, 'gas': 1000000})
+uint256 = st.number_input("Enter Your Amount To Lend")
+address = st.text_input("Enter Wallet Address")
+if st.button("Lender Deposit Portal"):
+    tx_hash = contract.functions.stakeCrypto(uint256, address).transact({'from': address, 'gas': 1000000})
     receipt = w3.eth.waitForTransactionReceipt(tx_hash)
     st.write("Transaction receipt mined:")
     st.write(dict(receipt))
