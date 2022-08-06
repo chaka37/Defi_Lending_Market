@@ -36,7 +36,7 @@ struct Rational {
         uint256 _collateralDeposit
     )
     {
- 
+    
         borrower= payable(msg.sender);
         escrowAddress = payable(0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2);
         loanAmountRequested = _loanAmountRequested;
