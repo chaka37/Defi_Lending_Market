@@ -36,6 +36,8 @@ Token Contract > Token Exchange Contract > Borrowing Contract ( Borrower verific
 ![image](https://user-images.githubusercontent.com/98926434/182718347-e817fafd-a530-4866-ac46-575b6d105425.png)
 ![image](https://user-images.githubusercontent.com/98926434/182717194-8f2881ae-b9e0-4858-89b8-a6acafaae58f.png)
 
-## Streamlit interface
+## Lending and Make payments Streamlit interface
 ![image](https://user-images.githubusercontent.com/98926434/183251701-65118192-8ae2-42f0-8d76-0304e627526d.png)
+![image](https://user-images.githubusercontent.com/98926434/183251776-ff87da70-e5ff-4d91-9fa9-9a9203f629af.png)
+
 
