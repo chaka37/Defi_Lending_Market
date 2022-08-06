@@ -40,4 +40,6 @@ contract SmartLending {
          return lender.balance;
     }
 
+    
+
 }
